@@ -58,6 +58,7 @@ BEGIN_MESSAGE_MAP(CshowDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONDBLCLK()
+	ON_WM_RBUTTONDOWN()
 END_MESSAGE_MAP()
 
 
@@ -169,4 +170,14 @@ void CshowDlg::OnLButtonDblClk(UINT nFlags, CPoint point)
 	EndDialog(IDCANCEL);
 
 	CDialogEx::OnLButtonDblClk(nFlags, point);
+}
+
+
+void CshowDlg::OnRButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+
+	EndDialog(IDCANCEL);
+
+	CDialogEx::OnRButtonDown(nFlags, point);
 }

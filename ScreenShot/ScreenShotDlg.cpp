@@ -32,6 +32,7 @@ BEGIN_MESSAGE_MAP(CScreenShotDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUT_SHOT, &CScreenShotDlg::OnBnClickedButShot)
+	ON_MESSAGE(WM_HOTKEY, OnHotKey)
 END_MESSAGE_MAP()
 
 
@@ -47,6 +48,15 @@ BOOL CScreenShotDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
+	m_nHotKeyID = GlobalAddAtomA("m_nHotKeyID") - 0xC000;
+	if (RegisterHotKey(
+		GetSafeHwnd(),
+		m_nHotKeyID,
+		MOD_CONTROL,// | MOD_ALT,
+		'X'))
+	{
+		GetDlgItem(IDC_STATIC2)->SetWindowText(_T("使用ctrl+x快捷截图"));//成功
+	}
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -87,6 +97,16 @@ HCURSOR CScreenShotDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+LONG CScreenShotDlg::OnHotKey(WPARAM wParam, LPARAM lParam)
+{
+	
+	GetDlgItem(IDC_STATIC2)->SetWindowText(_T("正在使用快捷截图"));
+	OnBnClickedButShot();
+	GetDlgItem(IDC_STATIC2)->SetWindowText(_T("使用ctrl+x快捷截图"));
+	
+	return 0;
+}
+
 
 void CScreenShotDlg::OnBnClickedButShot()
 {
@@ -96,3 +116,6 @@ void CScreenShotDlg::OnBnClickedButShot()
 
 	//
 }
+
+
+

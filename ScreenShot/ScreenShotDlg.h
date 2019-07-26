@@ -11,6 +11,7 @@ class CScreenShotDlg : public CDialogEx
 // 构造
 public:
 	CScreenShotDlg(CWnd* pParent = nullptr);	// 标准构造函数
+	int m_nHotKeyID;
 
 // 对话框数据
 #ifdef AFX_DESIGN_TIME
@@ -29,7 +30,10 @@ protected:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
+	afx_msg LONG OnHotKey(WPARAM wParam, LPARAM lParam);
 	DECLARE_MESSAGE_MAP()
+	
+
 public:
 
 	afx_msg void OnBnClickedButShot();
